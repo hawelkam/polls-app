@@ -6,7 +6,7 @@ import { setAuthedUser } from './authedUser';
 
 export function handleInitialData() {
     return (dispatch) => {
-        return _getUsers().then(({ users }) => {
+        return _getUsers().then((users) => {
             //dispatch(receiveQuestions(que));
             dispatch(receiveUsers(users));
             //dispatch(setAuthedUser(AUTHED_ID));
