@@ -1,7 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { connect } from 'react-redux';
 import './App.css';
 import Login from '../login/Login';
+import Dashboard from '../dashboard/Dashboard';
 import { handleInitialData } from '../../actions/shared';
 
 
@@ -12,13 +14,26 @@ class App extends Component {
   
   render() {
     return (
-      this.props.loading === true ? null : <Login />
+      <Router>
+      <Fragment>
+        <div className='container'>
+          {this.props.loading === true
+            ? null
+            : <div>
+                {/*
+                <Route path='/tweet/:id' component={TweetPage} />
+          <Route path='/new' component={NewTweet} /> */}
+                <Route path='/' exact component={Dashboard} />
+                <Route path='/login' exact component={Login} />
+              </div>}
+        </div>
+      </Fragment>
+    </Router>
     );
   } 
 }
 
 function mapStateToProps ( { users }) {
-  console.log("users: ", users);
   return {
     loading: Object.entries(users).length === 0
   }

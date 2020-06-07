@@ -9,7 +9,6 @@ export function handleInitialData() {
         return _getUsers().then((users) => {
             //dispatch(receiveQuestions(que));
             dispatch(receiveUsers(users));
-            //dispatch(setAuthedUser(AUTHED_ID));
         })
     }
 }
