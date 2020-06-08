@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { setAuthedUser } from '../../actions/authedUser';
 import { Redirect } from 'react-router-dom';
-
+import { _getQuestions } from '../../utils/_DATA';
+import { receiveQuestions } from '../../actions/questions';
 
 class RegisteredUser extends Component {
     state = {
@@ -12,6 +13,11 @@ class RegisteredUser extends Component {
     handleLogin = (e) => {
         const { dispatch, id } = this.props;
         dispatch(setAuthedUser(id));
+
+        // GET QUESTIONS
+        _getQuestions().then((questions) => {
+            dispatch(receiveQuestions(questions));
+        })
 
         this.setState(() => ({
             toDashboard: true,
@@ -28,7 +34,7 @@ class RegisteredUser extends Component {
     
         return (
 
-            <button onClick={this.handleLogin}>
+            <button className='user-button' onClick={this.handleLogin}>
                 <img src={user.avatarURL} alt={`Avatar of ${user.name}`} className='avatar'/>
                 <h2>{user.id}</h2>
             </button>

@@ -27,17 +27,9 @@ function addQuestion(question) {
     }
 }
 
-export function handleAddQuestion(text, replyingTo) {
-    return (dispatch, getState) => {
-        // const { authedUser } = getState();
-        // dispatch(showLoading());
-
-        // return saveTweet({
-        //     text,
-        //     author: authedUser,
-        //     replyingTo
-        // }).then((tweet) => dispatch(addTweet(tweet)))
-        //     .then(() => dispatch(hideLoading()));
+export function handleAddQuestion(question) {
+    return (dispatch) => {
+        return _saveQuestion(question).then((q) => dispatch(addQuestion(q)));
     }
 }
 

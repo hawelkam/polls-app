@@ -12,34 +12,43 @@ class Navbar extends Component {
     }
 
     render() {
+      const { user } = this.props
         return (
             <nav className='nav'>
             <ul>
               <li>
-                <NavLink to='/' exact activeClassName='active'>
+                <NavLink to='/' exact activeClassName='active' className='nav-link'>
                   Home
                 </NavLink>
               </li>
               <li>
-                <NavLink to='/new' activeClassName='active'>
+                <NavLink to='/new' activeClassName='active' className='nav-link'>
                   New Question
                 </NavLink>
               </li>
               <li>
-                <NavLink to='/leaderboard' activeClassName='active'>
+                <NavLink to='/leaderboard' activeClassName='active' className='nav-link'>
                   Leaderboard
                 </NavLink>
               </li>
             </ul>
-            <div>
-                Logged user
+            <div className='nav-user'>
+                <img src={user.avatarURL} alt={`Avatar of ${user.name}`} className='avatar'/>
+                <h2>{user.id}</h2>
+                <button onClick={this.handleLogout} className='logout-btn'>
+                  Log out
+                </button>
             </div>
-            <button onClick={this.handleLogout}>
-                Log out
-            </button>
+           
           </nav>
         )
     }
 }
 
-export default connect()(Navbar);
+function mapStateToProps ( { authedUser, users }) {
+  return {
+    user: users[authedUser]
+  }
+}
+
+export default connect(mapStateToProps)(Navbar);

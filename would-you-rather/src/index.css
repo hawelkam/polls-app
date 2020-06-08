@@ -16,6 +16,7 @@ code {
   height: 50px;
   border-radius: 25px;
   margin: 10px;
+  border: 1px solid black;
 }
 
 li {
@@ -26,9 +27,52 @@ li {
 
 nav {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
 }
 
 nav ul {
   display: flex;
+}
+
+.user-list-item {
+  padding: 0px;
+}
+
+.user-button {
+  width: 30%;
+}
+
+.container {
+  margin: 0px auto;
+  text-align: center;
+  width: 75%;
+}
+
+.nav-user {
+  display: flex;
+  align-items: center;
+}
+
+.logout-btn {
+  border-radius: 20px;
+  background-color: rgb(169, 60, 60);
+  height: 2rem;
+  padding: 5px;
+  width: 5rem;
+  color: white;
+  margin: 0px 15px;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: white;
+}
+
+nav {
+  background-color: cadetblue;
+}
+
+.question {
+  width: 70%;
+    border-radius: 5px;
 }
