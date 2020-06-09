@@ -74,7 +74,7 @@ nav {
 
 .question {
   width: 70%;
-    border-radius: 5px;
+  border-radius: 5px;
 }
 
 .active {
@@ -87,5 +87,12 @@ form {
 }
 
 .selected {
-  border: 3px solid black;
+  border: 3px solid green;
+}
+
+.answer {
+  display: flex;
+  justify-content: space-evenly;
+  border: 1px solid black;
+  height: 3rem;
 }

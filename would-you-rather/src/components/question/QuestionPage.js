@@ -6,9 +6,6 @@ import { handleAddAnswer } from '../../actions/questions';
 
 
 class QuestionPage extends Component {
-    state = {
-      alreadyAnswered: this.props.alreadyAnswered
-    }
     handleVote = (e, chosenOption) => {
       e.preventDefault();
       const { dispatch } = this.props;
@@ -16,30 +13,29 @@ class QuestionPage extends Component {
       dispatch(handleAddAnswer({
           qid: this.props.question.id,
           answer: chosenOption,
-          authedUser: this.props.authedUser
+          authedUser: this.props.authedUser.id
       }));
-
-      this.setState(() => ({alreadyAnswered: true}));
     }
 
     render() {
         const {question, authedUser, userAnswer} = this.props;
-        console.log(this.props.userAnswer)
         return (
-            this.props.authedUser != null ? (
+            authedUser != null ? (
                 <div>
                   <Navbar />
                   <h1>Would you rather?</h1>
+                  <p>Asked by: <img src={authedUser.avatarURL} alt={`Avatar of ${authedUser.name}`} className='avatar'/>
+                    {authedUser.id}</p>
                   <form>
-                    <div className={userAnswer && userAnswer === 'optionOne' ? 'selected' : 'none'}>
-                      <button onClick={(e) => this.handleVote(e, 'optionOne')} disabled={this.state.alreadyAnswered}>{question.optionOne.text}</button>
-                      {this.state.alreadyAnswered ? (
+                    <div className={userAnswer && userAnswer === 'optionOne' ? 'selected answer' : 'answer'}>
+                      <button onClick={(e) => this.handleVote(e, 'optionOne')} disabled={userAnswer} className='question'>{question.optionOne.text}</button>
+                      {userAnswer ? (
                         <p>{question.optionOne.votes.length} votes</p>
                       ) : null}
                     </div>
-                    <div className={userAnswer && userAnswer === 'optionTwo' ? 'selected' : 'none'}>
-                      <button onClick={(e) => this.handleVote(e, 'optionTwo')} disabled={this.state.alreadyAnswered}>{question.optionTwo.text}</button>
-                      {this.state.alreadyAnswered ? (
+                    <div className={userAnswer && userAnswer === 'optionTwo' ? 'selected answer' : 'answer'}>
+                      <button onClick={(e) => this.handleVote(e, 'optionTwo')} disabled={userAnswer} className='question'>{question.optionTwo.text}</button>
+                      {userAnswer ? (
                         <p>{question.optionTwo.votes.length} votes</p>
                       ) : null}
                     </div>
@@ -54,12 +50,10 @@ class QuestionPage extends Component {
 
 function mapStateToProps ( { authedUser, questions, users }, props) {
   const { id } = props.match.params;
-  console.log(questions[id]);
     return {
-      authedUser,
+      authedUser: users[authedUser],
       question: questions[id],
       userAnswer: users[authedUser].answers[id],
-      alreadyAnswered: questions[id] && (questions[id].optionOne.votes.includes(authedUser) || questions[id].optionTwo.votes.includes(authedUser))
     }
   }
 

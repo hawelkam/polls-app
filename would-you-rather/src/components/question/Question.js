@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { formatDate } from '../../utils/helpers'
 
 class Question extends Component {
 
@@ -10,6 +11,7 @@ class Question extends Component {
 
             <button className='question'>
                 <h2>Would you rather {question.optionOne.text} or {question.optionTwo.text}?</h2>
+                <p>Asked by {question.author} on {formatDate(question.timestamp)}</p>
             </button>
         )
     }

@@ -22,6 +22,7 @@ class QuestionList extends Component {
     )
 
     render() {
+        console.log(this.props.questions)
         return (
             <div>
                 <label>
@@ -38,9 +39,9 @@ class QuestionList extends Component {
                 </label>
             <ul>
                 {this.props.questions
-                    .filter((q) => ((this.state.showUnanswered && this.props.answered[q.id] == null) || (this.state.showAnswered && this.props.answered[q.id] != null)))
+                    .filter((q) => ((this.state.showUnanswered && this.props.answered[q] == null) || (this.state.showAnswered && this.props.answered[q] != null)))
                     .map((question) => (
-                        <li key={question.id}><Link to={`/question/${question.id}`}><Question id={question.id} /></Link></li>)
+                        <li key={question}><Link to={`/question/${question}`}><Question id={question} /></Link></li>)
                     )
                 }
             </ul>
@@ -51,7 +52,7 @@ class QuestionList extends Component {
 
 function mapStateToProps ( { questions, authedUser, users }) {
     return {
-      questions: Object.values(questions),
+      questions: Object.keys(questions).sort((a,b) => questions[b].timestamp - questions[a].timestamp),
       answered: users[authedUser].answers
     }
 }
