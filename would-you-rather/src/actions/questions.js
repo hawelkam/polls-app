@@ -11,10 +11,10 @@ export function receiveQuestions(questions) {
     }
 }
 
-function addAnswer({ id, answer, authedUser }) {
+function addAnswer({ qid, answer, authedUser }) {
     return {
         type: ADD_ANSWER,
-        id,
+        qid,
         answer,
         authedUser
     }
@@ -33,13 +33,10 @@ export function handleAddQuestion(question) {
     }
 }
 
-export function handleAddAnswer(info) {
+export function handleAddAnswer(answer) {
     return (dispatch) => {
-        // dispatch(toggleTweet(info))
-        // return saveLikeToggle(info).catch((e) => {
-        //     console.warn('Error in handle toggle event: ', e);
-        //     dispatch(toggleTweet(info));
-        //     alert('There was an error while liking the tweet!');
-        // })
+        return _saveQuestionAnswer(answer).then(() => {
+            dispatch(addAnswer(answer))
+        });
     }
 }

@@ -11,21 +11,29 @@ class Leaderboard extends Component {
             this.props.authedUser != null ? (
                 <div>
                   <Navbar />
-                  <ul>
-                      {users.map((user) => (
-                          <li key={user.id}><button>
-                              <h2>{user.id}</h2>
-                              <p>Question asked: {user.questions.length}</p>
-                          </button></li>
-                      ))}
+                  <ul>Asking Leaderboard
+                      {this.props.questionLeaderboard.map((userId) => {
+                            return (
+                                <li key={userId}>
+                                    <button>
+                                        <h2>{userId}</h2>
+                                        <p>Question asked: {this.props.users[userId].questions.length}</p>
+                                    </button>
+                                </li>
+                            )
+                      })}
                   </ul>
-                  <ul>
-                      {users.map((user) => (
-                          <button>
-                              <h2>{user.id}</h2>
-                              <p>Question answered: {Object.values(user.answers).length}</p>
-                          </button>
-                      ))}
+                  <ul>Answering leaderboard
+                      {this.props.answerLeaderboard.map((userId) => {
+                            return (
+                                <li key={userId}>
+                                    <button>
+                                        <h2>{userId}</h2>
+                                        <p>Question answered: {Object.values(this.props.users[userId].answers).length}</p>
+                                    </button>
+                                </li>
+                            )
+                      })}
                   </ul>
                 </div>
               ) : 
@@ -37,7 +45,9 @@ class Leaderboard extends Component {
 function mapStateToProps ( { authedUser, users }) {
     return {
       authedUser,
-      users: Object.values(users)
+      users,
+      answerLeaderboard: Object.keys(users).sort((a,b) => Object.values(users[b].answers).length - Object.values(users[a].answers).length),
+      questionLeaderboard: Object.keys(users).sort((a,b) => users[b].questions.length - users[a].questions.length)
     }
   }
 

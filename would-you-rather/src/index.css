@@ -76,3 +76,16 @@ nav {
   width: 70%;
     border-radius: 5px;
 }
+
+.active {
+  font-weight: bold;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.selected {
+  border: 3px solid black;
+}
