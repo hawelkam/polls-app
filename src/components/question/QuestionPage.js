@@ -29,7 +29,7 @@ class QuestionPage extends Component {
             authedUser != null ? (
               question ? (
                 <div>
-                  
+                  <Navbar />
                   <h1>Would you rather?</h1>
                   <p>Asked by: <img src={authedUser.avatarURL} alt={`Avatar of ${authedUser.name}`} className='avatar'/>
                     {authedUser.id}</p>
