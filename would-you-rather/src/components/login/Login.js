@@ -9,7 +9,7 @@ class Login extends Component {
             <div>
                 <h1>Would you rather?</h1>
                 <h2>Select user:</h2>
-                <UserList />
+                <UserList callbackUrl={this.props.location.state ? this.props.location.state.url : '/'}/>
             </div>
         )
     }

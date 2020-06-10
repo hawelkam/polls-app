@@ -2,25 +2,18 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { setAuthedUser } from '../../actions/authedUser';
 import { Redirect } from 'react-router-dom';
-import { _getQuestions } from '../../utils/_DATA';
-import { receiveQuestions } from '../../actions/questions';
 
 class RegisteredUser extends Component {
     state = {
-        toDashboard: false,
+        redirect: false,
     }
 
     handleLogin = (e) => {
         const { dispatch, id } = this.props;
         dispatch(setAuthedUser(id));
 
-        // GET QUESTIONS
-        _getQuestions().then((questions) => {
-            dispatch(receiveQuestions(questions));
-        })
-
         this.setState(() => ({
-            toDashboard: true,
+            redirect: true,
           }))
     }
 
@@ -28,8 +21,8 @@ class RegisteredUser extends Component {
     render() {
         const { user } = this.props;
 
-        if (this.state.toDashboard === true) {
-            return <Redirect to='/' />
+        if (this.state.redirect === true) {
+            return <Redirect to={this.props.url} />
         }
     
         return (

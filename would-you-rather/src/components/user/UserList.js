@@ -7,7 +7,7 @@ class UserList extends Component {
         return (
             <ul>
                 {this.props.users.map((user) => (
-                    <li className='user-list-item' key={user.id}><RegisteredUser id={user.id} /></li>))}
+                    <li className='user-list-item' key={user.id}><RegisteredUser id={user.id} url={this.props.callbackUrl}/></li>))}
             </ul>
         )
     }

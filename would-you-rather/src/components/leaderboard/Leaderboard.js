@@ -11,25 +11,18 @@ class Leaderboard extends Component {
             this.props.authedUser != null ? (
                 <div>
                   <Navbar />
-                  <ul>Asking Leaderboard
-                      {this.props.questionLeaderboard.map((userId) => {
+                  <ul><h1>Leaderboard</h1>
+                      {this.props.leaderboard.map((value, key) => {
                             return (
-                                <li key={userId}>
-                                    <button>
-                                        <h2>{userId}</h2>
-                                        <p>Question asked: {users[userId].questions.length}</p>
-                                    </button>
-                                </li>
-                            )
-                      })}
-                  </ul>
-                  <ul>Answering leaderboard
-                      {this.props.answerLeaderboard.map((userId) => {
-                            return (
-                                <li key={userId}>
-                                    <button>
-                                        <h2>{userId}</h2>
-                                        <p>Question answered: {Object.values(users[userId].answers).length}</p>
+                                <li key={value}>
+                                    <button className='leaderboard-item'>
+                                        <h1>{key + 1}</h1>
+                                        <span>
+                                            <img src={users[value].avatarURL} alt={`Avatar of ${users[value].name}`} className='avatar'/>
+                                            <h2>{value}</h2>
+                                        </span>
+                                        <p className='leaderboard-text'>Question asked: {users[value].questions.length}</p>
+                                        <p className='leaderboard-text'>Question answered: {Object.values(users[value].answers).length}</p>
                                     </button>
                                 </li>
                             )
@@ -37,7 +30,10 @@ class Leaderboard extends Component {
                   </ul>
                 </div>
               ) : 
-              <Redirect to='/login' />
+              <Redirect to={{
+                pathname: "/login",
+                state: { url: `/leaderboard` }
+              }}/>
         )
     }
 }
@@ -46,8 +42,7 @@ function mapStateToProps ( { authedUser, users }) {
     return {
       authedUser,
       users,
-      answerLeaderboard: Object.keys(users).sort((a,b) => Object.values(users[b].answers).length - Object.values(users[a].answers).length),
-      questionLeaderboard: Object.keys(users).sort((a,b) => users[b].questions.length - users[a].questions.length)
+      leaderboard: Object.keys(users).sort((a,b) => (Object.values(users[b].answers).length + users[b].questions.length) - (Object.values(users[a].answers).length + users[a].questions.length))
     }
   }
 

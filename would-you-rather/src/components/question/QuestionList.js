@@ -22,7 +22,6 @@ class QuestionList extends Component {
     )
 
     render() {
-        console.log(this.props.questions)
         return (
             <div>
                 <label>

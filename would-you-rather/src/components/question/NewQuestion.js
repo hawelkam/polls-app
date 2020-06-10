@@ -8,7 +8,8 @@ import { handleAddQuestion } from '../../actions/questions';
 class NewQuestion extends Component {
     state = {
         option1: '',
-        option2: ''
+        option2: '',
+        redirect: false
     }
 
     handleOption1Change = (e) => {
@@ -41,13 +42,16 @@ class NewQuestion extends Component {
 
         this.setState(() => ({
             option1: '',
-            option2: ''
+            option2: '',
+            redirect: true
         }));
     }
 
     render() {
         const { option1, option2 } = this.state;
-
+        if (this.state.redirect === true) {
+            return <Redirect to='/' />
+        }
         return (
             this.props.authedUser != null ? (
                 <div>
@@ -60,7 +64,10 @@ class NewQuestion extends Component {
                   </form>
                 </div>
               ) : 
-              <Redirect to='/login' />
+              <Redirect to={{
+                pathname: "/login",
+                state: { url: `/add` }
+              }}/>
         )
     }
 }
