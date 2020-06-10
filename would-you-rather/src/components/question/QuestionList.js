@@ -37,14 +37,25 @@ class QuestionList extends Component {
                     onChange={this.toggleAnswered}/>
                     Show answered
                 </label>
-            <ul>
+            {this.state.showUnanswered && (<ul><h1>Unanswered questions</h1>
+                {this.props.questions
+                    .filter((q) => ((this.state.showUnanswered && this.props.answered[q] == null)))
+                    .map((question) => (
+                        <li key={question}><Link to={`/question/${question}`}><Question id={question} /></Link></li>)
+                    )
+                }
+            </ul>)}
+            {this.state.showAnswered && (
+                <ul><h1>Answered questions</h1>
                 {this.props.questions
                     .filter((q) => ((this.state.showUnanswered && this.props.answered[q] == null) || (this.state.showAnswered && this.props.answered[q] != null)))
                     .map((question) => (
                         <li key={question}><Link to={`/question/${question}`}><Question id={question} /></Link></li>)
                     )
                 }
-            </ul>
+                </ul>
+            )}
+
             </div>
         )
     }

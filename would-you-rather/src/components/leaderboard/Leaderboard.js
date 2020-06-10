@@ -17,7 +17,7 @@ class Leaderboard extends Component {
                                 <li key={userId}>
                                     <button>
                                         <h2>{userId}</h2>
-                                        <p>Question asked: {this.props.users[userId].questions.length}</p>
+                                        <p>Question asked: {users[userId].questions.length}</p>
                                     </button>
                                 </li>
                             )
@@ -29,7 +29,7 @@ class Leaderboard extends Component {
                                 <li key={userId}>
                                     <button>
                                         <h2>{userId}</h2>
-                                        <p>Question answered: {Object.values(this.props.users[userId].answers).length}</p>
+                                        <p>Question answered: {Object.values(users[userId].answers).length}</p>
                                     </button>
                                 </li>
                             )
